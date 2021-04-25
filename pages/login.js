@@ -3,7 +3,6 @@ import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import TextField from '@material-ui/core/TextField';
-import Checkbox from '@material-ui/core/Checkbox';
 import Link from 'next/link';
 import Grid from '@material-ui/core/Grid';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
@@ -15,17 +14,16 @@ import Layout from '../components/layout';
 const useStyles = makeStyles((theme) => ({
     paper: {
         marginBottom: theme.spacing(20),
-        marginTop: theme.spacing(8),
+        marginTop: theme.spacing(10),
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
     },
     avatar: {
         margin: theme.spacing(1),
-        backgroundColor: theme.palette.secondary.main,
     },
     form: {
-        width: '100%', // Fix IE 11 issue.
+        width: '100%',
         marginTop: theme.spacing(1),
     },
     submit: {
@@ -40,14 +38,14 @@ export default function SignIn() {
         <Layout title="Sign In">
             <Container component="main" maxWidth="xs">
                 <CssBaseline />
-                <div className={classes.paper}>
-                    <Avatar className={classes.avatar}>
+                <div style={{ marginTop: '35px', display: 'flex', flexDirection: 'column', alignItems: 'center', marginBottom: '200px' }}>
+                    <Avatar style={{ margin: '10px' }}>
                         <LockOutlinedIcon />
                     </Avatar>
                     <Typography component="h1" variant="h5">
                         Sign in
                     </Typography>
-                    <form className={classes.form} noValidate>
+                    <form style={{ width: '100%' }} noValidate>
                         <TextField
                             variant="outlined"
                             margin="normal"
@@ -75,7 +73,7 @@ export default function SignIn() {
                             fullWidth
                             variant="contained"
                             color="primary"
-                            className={classes.submit}
+                            style={{ margin: '2rem 0 1rem' }}
                         >
                             Sign In
                         </Button>

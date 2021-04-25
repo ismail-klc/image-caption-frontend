@@ -8,6 +8,10 @@ export default function Layout({ children, title }) {
         <div style={{ backgroundColor: '#fff' }}>
             <Head>
                 <title>{title}</title>
+                <meta
+                    name="viewport"
+                    content="minimum-scale=1, initial-scale=1, width=device-width"
+                />
                 <link rel="icon" href="/favicon.ico" />
                 <script src="/js/plugins.js" type="javascript"></script>
                 <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
