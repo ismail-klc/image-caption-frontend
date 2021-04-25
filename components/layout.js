@@ -5,7 +5,7 @@ import Head from 'next/head'
 
 export default function Layout({ children, title }) {
     return (
-        <div>
+        <div style={{ backgroundColor: '#fff' }}>
             <Head>
                 <title>{title}</title>
                 <link rel="icon" href="/favicon.ico" />
