@@ -1,65 +1,53 @@
-import Head from 'next/head'
-import styles from '../styles/Home.module.css'
+import Link from 'next/link'
+import Layout from '../components/layout'
+import Photo from '../components/photo'
+import Search from '../components/search'
 
 export default function Home() {
   return (
-    <div className={styles.container}>
-      <Head>
-        <title>Create Next App</title>
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
-
-      <main className={styles.main}>
-        <h1 className={styles.title}>
-          Welcome to <a href="https://nextjs.org">Next.js!</a>
-        </h1>
-
-        <p className={styles.description}>
-          Get started by editing{' '}
-          <code className={styles.code}>pages/index.js</code>
-        </p>
-
-        <div className={styles.grid}>
-          <a href="https://nextjs.org/docs" className={styles.card}>
-            <h3>Documentation &rarr;</h3>
-            <p>Find in-depth information about Next.js features and API.</p>
-          </a>
-
-          <a href="https://nextjs.org/learn" className={styles.card}>
-            <h3>Learn &rarr;</h3>
-            <p>Learn about Next.js in an interactive course with quizzes!</p>
-          </a>
-
-          <a
-            href="https://github.com/vercel/next.js/tree/master/examples"
-            className={styles.card}
-          >
-            <h3>Examples &rarr;</h3>
-            <p>Discover and deploy boilerplate example Next.js projects.</p>
-          </a>
-
-          <a
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-            className={styles.card}
-          >
-            <h3>Deploy &rarr;</h3>
-            <p>
-              Instantly deploy your Next.js site to a public URL with Vercel.
-            </p>
-          </a>
-        </div>
-      </main>
-
-      <footer className={styles.footer}>
-        <a
-          href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Powered by{' '}
-          <img src="/vercel.svg" alt="Vercel Logo" className={styles.logo} />
-        </a>
-      </footer>
+    <Layout title={"Home"}>
+    <div className="loaded">
+    <div id="loader-wrapper">
+        <div id="loader"></div>
+        <div className="loader-section section-left"></div>
+        <div className="loader-section section-right"></div>
     </div>
+
+   <Search />
+
+    <div className="container-fluid tm-container-content tm-mt-60">
+        <div className="row mb-4">
+            <h2 className="col-6 tm-text-primary">
+                Latest Photos
+            </h2>
+            <div className="col-6 d-flex justify-content-end align-items-center">
+                {/* <form action="" className="tm-text-primary">
+                    Page <input type="text" value="1" size="1" className="tm-input-paging tm-text-primary" /> of 200
+                </form> */}
+            </div>
+        </div>
+
+        <div className="row tm-mb-90 tm-gallery">
+        	
+               {[1,2,3,4,5,6,7,8,9,10].map((p,index) => (
+                 <Photo key={index}/>
+               ))}
+        </div>
+
+        <div className="row tm-mb-90">
+            <div className="col-12 d-flex justify-content-between align-items-center tm-paging-col">
+                <a href="javascript:void(0);" className="btn btn-primary tm-btn-prev mb-2 disabled">Previous</a>
+                <div className="tm-paging d-flex">
+                    <a href="javascript:void(0);" className="active tm-paging-link">1</a>
+                    <a href="javascript:void(0);" className="tm-paging-link">2</a>
+                    <a href="javascript:void(0);" className="tm-paging-link">3</a>
+                    <a href="javascript:void(0);" className="tm-paging-link">4</a>
+                </div>
+                <a href="javascript:void(0);" className="btn btn-primary tm-btn-next">Next Page</a>
+            </div>            
+        </div>
+    </div> 
+    </div>
+    </Layout>
   )
 }
