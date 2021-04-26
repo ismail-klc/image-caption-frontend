@@ -6,5 +6,4 @@ import reducer from './reducers'
 const middleware = [thunk]
 
 const makeStore = () => createStore(reducer, compose(applyMiddleware(...middleware)))
-
 export const wrapper = createWrapper(makeStore)

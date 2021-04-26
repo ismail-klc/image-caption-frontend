@@ -2,21 +2,18 @@
 import Router from 'next/router';
 import axios from 'axios';
 import { AUTHENTICATE, DEAUTHENTICATE } from './types';
-import { setCookie, removeCookie } from '../../utils/cookie';
+import { setCookie, removeCookie, getCookie } from '../../utils/cookie';
 import getConfig from "next/config";
 const { publicRuntimeConfig } = getConfig();
 
 const login = ({ username, password }) => {
-
-    console.log(publicRuntimeConfig.API);
     return (dispatch) => {
-        axios.post(`http://127.0.0.1:8000/auth/login/`, { username, password })
+        axios.post(`${publicRuntimeConfig.API}/auth/login/`, { username, password })
             .then((response) => {
-                console.log(response);
                 setCookie('access', response.data.access);
                 setCookie('refresh', response.data.refresh);
                 Router.push('/');
-                dispatch({ type: AUTHENTICATE, payload: response.data.token });
+                dispatch({ type: AUTHENTICATE, payload: response.data.access });
             })
             .catch((err) => {
                 console.log(err);
@@ -24,6 +21,47 @@ const login = ({ username, password }) => {
     };
 };
 
+const reauthenticate = () => {
+    const token = getCookie('access')
+    if (token) {
+        return (dispatch) => {
+            const config = {
+                headers: { Authorization: `Bearer ${token}` }
+            };
+
+            axios.get(`${publicRuntimeConfig.API}/auth/me/`, config)
+                .then((response) => {
+                    console.log(response.data);
+
+                    dispatch({ type: AUTHENTICATE, payload: token });
+                })
+                .catch((err) => {
+                    console.log(err);
+                    removeCookie('access');
+                    removeCookie('refresh');
+                    dispatch({ type: DEAUTHENTICATE });
+                });
+        };
+    }
+
+    return (dispatch) => {
+        removeCookie('access');
+        removeCookie('refresh');
+        dispatch({ type: DEAUTHENTICATE });
+    };
+};
+
+const deauthenticate = () => {
+    return (dispatch) => {
+        removeCookie('access');
+        removeCookie('refresh');
+        Router.push('/login');
+        dispatch({ type: DEAUTHENTICATE });
+    };
+};
+
 export default {
-    login
+    login,
+    reauthenticate,
+    deauthenticate
 };

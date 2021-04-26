@@ -2,8 +2,15 @@ import React from 'react'
 import Footer from './footer'
 import Navbar from './navbar'
 import Head from 'next/head'
+import { connect } from 'react-redux';
+import actions from '../redux/actions';
+import { useEffect } from 'react';
 
-export default function Layout({ children, title }) {
+function Layout({ children, title, reauthenticate }) {
+    useEffect(() => {
+        reauthenticate()        
+    }, [])
+    
     return (
         <div style={{ backgroundColor: '#fff' }}>
             <Head>
@@ -26,3 +33,8 @@ export default function Layout({ children, title }) {
         </div>
     )
 }
+
+export default connect(
+    state => state,
+    actions
+)(Layout)

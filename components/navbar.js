@@ -1,8 +1,10 @@
 import React from 'react'
 import { useRouter } from 'next/router'
 import Link from 'next/link'
+import { connect } from 'react-redux';
+import actions from '../redux/actions';
 
-export default function Navbar() {
+function Navbar({ isAuthenticated, deauthenticate }) {
     const router = useRouter()
     const path = router.route
 
@@ -35,14 +37,39 @@ export default function Navbar() {
                                 <a className={`nav-link nav-link-1 ${path === '/demo' ? 'active' : null}`} >Demo</a>
                             </Link>
                         </li>
-                        <li className="nav-item">
-                            <Link href="/login">
-                                <a className={`nav-link nav-link-1 ${path === '/login' ? 'active' : null}`} >Login</a>
-                            </Link>
-                        </li>
+                        {
+                            !isAuthenticated &&
+                            <li className="nav-item">
+                                <Link href="/login">
+                                    <a className={`nav-link nav-link-1 ${path === '/login' ? 'active' : null}`} >Login</a>
+                                </Link>
+                            </li>
+                        }
+                        {
+                            isAuthenticated &&
+                            <li className="nav-item" onClick={deauthenticate}>
+                                <Link href="/profile" >
+                                    <a className={`nav-link nav-link-1 `} >Profile</a>
+                                </Link>
+                            </li>
+                        }
+                        {
+                            isAuthenticated &&
+                            <li className="nav-item" onClick={deauthenticate}>
+                                <Link href="/login" >
+                                    <a className={`nav-link nav-link-1 `} >Logout</a>
+                                </Link>
+                            </li>
+                        }
                     </ul>
                 </div>
             </div>
         </nav>
     )
 }
+
+const mapStateToProps = (state) => (
+    { isAuthenticated: !!state.authentication.token }
+);
+
+export default connect(mapStateToProps, actions)(Navbar);
