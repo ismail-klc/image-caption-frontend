@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -10,6 +10,9 @@ import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import Layout from '../components/layout';
+import actions from '../redux/actions';
+import { useDispatch, useSelector } from 'react-redux';
+import { connect } from 'react-redux';
 
 const useStyles = makeStyles((theme) => ({
     paper: {
@@ -31,8 +34,16 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-export default function SignIn() {
+function SignIn(props) {
     const classes = useStyles();
+    const dispatch = useDispatch()
+    const [username, setUsername] = useState("")
+    const [password, setPassword] = useState("")
+
+    const handleSubmit = (e) => {
+        e.preventDefault()
+        props.login({ 'username': username, "password": password })
+    }
 
     return (
         <Layout title="Sign In">
@@ -45,27 +56,26 @@ export default function SignIn() {
                     <Typography component="h1" variant="h5">
                         Sign in
                     </Typography>
-                    <form style={{ width: '100%' }} noValidate>
+                    <form style={{ width: '100%' }} noValidate onSubmit={handleSubmit}>
                         <TextField
+                            value={username}
+                            onChange={e => setUsername(e.target.value)}
                             variant="outlined"
                             margin="normal"
                             required
                             fullWidth
-                            id="email"
-                            label="Email Address"
-                            name="email"
-                            autoComplete="email"
-                            autoFocus
+                            label="Username"
+                            autoComplete="text"
                         />
                         <TextField
+                            value={password}
+                            onChange={e => setPassword(e.target.value)}
                             variant="outlined"
                             margin="normal"
                             required
                             fullWidth
-                            name="password"
                             label="Password"
                             type="password"
-                            id="password"
                             autoComplete="current-password"
                         />
                         <Button
@@ -90,3 +100,8 @@ export default function SignIn() {
         </Layout>
     );
 }
+
+export default connect(
+    state => state,
+    actions
+)(SignIn)

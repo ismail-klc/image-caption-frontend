@@ -1,10 +1,11 @@
 import '../public/css/bootstrap.min.css'
 import '../public/css/templatemo-style.css'
 import '../public/fontawesome/css/all.min.css'
+import { wrapper } from '../redux';
 
-function MyApp({ Component, pageProps }) {
-  
+
+const MyApp = ({ Component, pageProps }) => {
   return <Component {...pageProps} />
 }
 
-export default MyApp
+export default wrapper.withRedux(MyApp)
