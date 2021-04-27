@@ -47,7 +47,7 @@ function Navbar({ isAuthenticated, deauthenticate }) {
                         }
                         {
                             isAuthenticated &&
-                            <li className="nav-item" onClick={deauthenticate}>
+                            <li className="nav-item">
                                 <Link href="/profile" >
                                     <a className={`nav-link nav-link-1 `} >Profile</a>
                                 </Link>
