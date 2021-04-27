@@ -4,9 +4,10 @@ import Link from 'next/link'
 import { connect } from 'react-redux';
 import actions from '../redux/actions';
 
-function Navbar({ isAuthenticated, deauthenticate }) {
+function Navbar({ isAuthenticated, deauthenticate, username }) {
     const router = useRouter()
     const path = router.route
+
 
     return (
         <nav className="navbar navbar-expand-lg bg-light">
@@ -49,7 +50,7 @@ function Navbar({ isAuthenticated, deauthenticate }) {
                             isAuthenticated &&
                             <li className="nav-item">
                                 <Link href="/profile" >
-                                    <a className={`nav-link nav-link-1 `} >Profile</a>
+                                    <a className={`nav-link nav-link-1 `} >{username}</a>
                                 </Link>
                             </li>
                         }
@@ -69,7 +70,7 @@ function Navbar({ isAuthenticated, deauthenticate }) {
 }
 
 const mapStateToProps = (state) => (
-    { isAuthenticated: !!state.authentication.token }
+    { isAuthenticated: !!state.authentication.token, username: state.authentication.username }
 );
 
 export default connect(mapStateToProps, actions)(Navbar);

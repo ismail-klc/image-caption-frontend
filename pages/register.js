@@ -1,16 +1,19 @@
 
-import React from 'react';
+import React, { useState } from 'react';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import TextField from '@material-ui/core/TextField';
 import Link from 'next/link';
 import Grid from '@material-ui/core/Grid';
+import { connect } from 'react-redux';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import Layout from '../components/layout';
+import actions from '../redux/actions';
+import { useDispatch } from 'react-redux';
 
 const useStyles = makeStyles((theme) => ({
     paper: {
@@ -33,8 +36,19 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-export default function SignUp() {
+function SignUp(props) {
     const classes = useStyles();
+    const [first_name, setFirstName] = useState("")
+    const [last_name, setLastName] = useState("")
+    const [username, setUsername] = useState("")
+    const [email, setEmail] = useState("")
+    const [password, setPassword] = useState("")
+    const [password2, setPassword2] = useState("")
+
+    const handleSubmit = async (e) => {
+        e.preventDefault()
+        props.register(first_name,last_name,username,email,password,password2)
+    }
 
     return (
         <Layout title="Sign Up">
@@ -47,25 +61,27 @@ export default function SignUp() {
                     <Typography component="h1" variant="h5">
                         Sign up
                     </Typography>
-                    <form style={{ width: '100%', marginTop: '1rem' }} noValidate>
+                    <form style={{ width: '100%', marginTop: '1rem' }} noValidate onSubmit={handleSubmit}>
                         <Grid container spacing={2}>
                             <Grid item xs={12} sm={6}>
                                 <TextField
                                     autoComplete="fname"
+                                    value={first_name}
+                                    onChange={e => setFirstName(e.target.value)}
                                     name="firstName"
                                     variant="outlined"
                                     required
                                     fullWidth
-                                    id="firstName"
                                     label="First Name"
                                 />
                             </Grid>
                             <Grid item xs={12} sm={6}>
                                 <TextField
                                     variant="outlined"
+                                    value={last_name}
+                                    onChange={e => setLastName(e.target.value)}
                                     required
                                     fullWidth
-                                    id="lastName"
                                     label="Last Name"
                                     name="lastName"
                                     autoComplete="lname"
@@ -74,9 +90,22 @@ export default function SignUp() {
                             <Grid item xs={12}>
                                 <TextField
                                     variant="outlined"
+                                    value={username}
+                                    onChange={e => setUsername(e.target.value)}
                                     required
                                     fullWidth
-                                    id="email"
+                                    label="Username"
+                                    name="text"
+                                    autoComplete="email"
+                                />
+                            </Grid>
+                            <Grid item xs={12}>
+                                <TextField
+                                    variant="outlined"
+                                    value={email}
+                                    onChange={e => setEmail(e.target.value)}
+                                    required
+                                    fullWidth
                                     label="Email Address"
                                     name="email"
                                     autoComplete="email"
@@ -88,9 +117,23 @@ export default function SignUp() {
                                     required
                                     fullWidth
                                     name="password"
+                                    value={password}
+                                    onChange={e => setPassword(e.target.value)}
                                     label="Password"
                                     type="password"
-                                    id="password"
+                                    autoComplete="current-password"
+                                />
+                            </Grid>
+                            <Grid item xs={12}>
+                                <TextField
+                                    variant="outlined"
+                                    required
+                                    fullWidth
+                                    value={password2}
+                                    onChange={e => setPassword2(e.target.value)}
+                                    name="password"
+                                    label="Password Again"
+                                    type="password"
                                     autoComplete="current-password"
                                 />
                             </Grid>
@@ -117,3 +160,8 @@ export default function SignUp() {
         </Layout>
     );
 }
+
+export default connect(
+    state => state,
+    actions
+)(SignUp)

@@ -21,6 +21,18 @@ const login = ({ username, password }) => {
     };
 };
 
+const register = (first_name,last_name,username,email,password,password2) => {
+    return (dispatch) => {
+        axios.post(`${publicRuntimeConfig.API}/auth/register/`, {first_name,last_name,username,email,password,password2})
+            .then((response) => {
+                Router.push('/login');
+            })
+            .catch((err) => {
+                console.log(err);
+            });
+    };
+}
+
 const reauthenticate = () => {
     const token = getCookie('access')
     if (token) {
@@ -33,7 +45,7 @@ const reauthenticate = () => {
                 .then((response) => {
                     console.log(response.data);
 
-                    dispatch({ type: AUTHENTICATE, payload: token });
+                    dispatch({ type: AUTHENTICATE, payload: {token, user: response.data} });
                 })
                 .catch((err) => {
                     console.log(err);
@@ -63,5 +75,6 @@ const deauthenticate = () => {
 export default {
     login,
     reauthenticate,
-    deauthenticate
+    deauthenticate,
+    register
 };
