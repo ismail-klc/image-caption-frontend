@@ -7,10 +7,10 @@ const initialState = {
 
 const photoReducer = (state = initialState, action) => {
     switch (action.type) {
-        case GET_PHOTOS_REQUEST:
-            return { photos: [], loading: true};
+        case GET_PHOTOS_FAILED:
+            return { photos: []};
         case GET_PHOTOS_SUCCESS:
-            return { photos: [...action.payload] , loading: false};
+            return { photos: [...action.payload]};
         default:
             return state;
     }

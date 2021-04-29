@@ -5,10 +5,12 @@ import Head from 'next/head'
 import { connect } from 'react-redux';
 import actions from '../redux/actions';
 import { useEffect } from 'react';
+import { useRouter } from 'next/router';
 
 function Layout({ children, title, reauthenticate }) {
+    const router = useRouter()
     useEffect(() => {
-        reauthenticate()        
+        reauthenticate(router.pathname)        
     }, [])
     
     return (

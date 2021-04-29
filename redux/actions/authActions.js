@@ -33,8 +33,11 @@ const register = (first_name,last_name,username,email,password,password2) => {
     };
 }
 
-const reauthenticate = () => {
+const privateRoutes = ['/profile']
+
+const reauthenticate = (pathname) => {
     const token = getCookie('access')
+
     if (token) {
         return (dispatch) => {
             const config = {
@@ -43,8 +46,6 @@ const reauthenticate = () => {
 
             axios.get(`${publicRuntimeConfig.API}/auth/me/`, config)
                 .then((response) => {
-                    console.log(response.data);
-
                     dispatch({ type: AUTHENTICATE, payload: {token, user: response.data} });
                 })
                 .catch((err) => {
@@ -52,6 +53,9 @@ const reauthenticate = () => {
                     removeCookie('access');
                     removeCookie('refresh');
                     dispatch({ type: DEAUTHENTICATE });
+                    if (privateRoutes.find(x => x === pathname)){
+                        Router.back()
+                    }
                 });
         };
     }
@@ -60,6 +64,9 @@ const reauthenticate = () => {
         removeCookie('access');
         removeCookie('refresh');
         dispatch({ type: DEAUTHENTICATE });
+        if (privateRoutes.find(x => x === pathname)){
+            Router.back()
+        }
     };
 };
 
