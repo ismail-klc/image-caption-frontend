@@ -374,7 +374,7 @@ p, .tm-text-gray { color: #999; }
 /*---------------*/
 
 figure.effect-ming {
-	background: #ccc;
+	background: #fff;
 }
 
 figure.effect-ming img {
@@ -389,7 +389,7 @@ figure.effect-ming figcaption::before {
 	right: 30px;
 	bottom: 30px;
 	left: 30px;
-	border: 2px solid #fff;
+	border: 2px solid #000;
 	box-shadow: 0 0 0 30px rgba(255,255,255,0.2);
 	content: '';
 	opacity: 0;

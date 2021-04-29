@@ -1,4 +1,4 @@
-import { GET_PHOTOS_REQUEST, GET_PHOTOS_SUCCESS, GET_PHOTOS_FAILED } from '../actions/types';
+import { GET_SINGLE_PHOTO, GET_PHOTOS_SUCCESS, GET_PHOTOS_FAILED } from '../actions/types';
 
 const initialState = {
     photos: [],
@@ -11,6 +11,12 @@ const photoReducer = (state = initialState, action) => {
             return { photos: []};
         case GET_PHOTOS_SUCCESS:
             return { photos: [...action.payload]};
+            case GET_SINGLE_PHOTO:
+                if (!state.photos.find(x => x.id === action.payload.id)) {
+                    return {
+                        photos: [...state.photos, action.payload],
+                    }
+                }
         default:
             return state;
     }
