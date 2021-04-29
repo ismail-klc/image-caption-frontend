@@ -1,4 +1,4 @@
-import { connect } from 'react-redux';
+import { connect, useSelector } from 'react-redux';
 import actions from '../redux/actions';
 import Layout from '../components/layout'
 import Photo from '../components/photo'
@@ -6,10 +6,15 @@ import Search from '../components/search'
 import { useEffect } from 'react';
 
 function Home(props) {
+    const {photos} = useSelector(state => state.photos)
 
     useEffect(() => {
-        // props.reauthenticate()   
+        props.getPhotos()   
     }, [])
+
+    if (photos.length === 0){
+        return null
+    }
 
     return (
         <Layout title={"Home"}>
@@ -36,8 +41,14 @@ function Home(props) {
 
                     <div className="row tm-mb-90 tm-gallery">
 
-                        {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((p, index) => (
-                            <Photo key={index} />
+                        {photos.map((p, index) => (
+                            <Photo 
+                                id={p.id}
+                                key={p.id}
+                                caption={p.caption}
+                                created_at={p.created_at}
+                                image={p.image}
+                                user={p.user} />
                         ))}
                     </div>
 

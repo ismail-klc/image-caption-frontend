@@ -320,12 +320,12 @@ p, .tm-text-gray { color: #999; }
 	opacity: 0;
 }
 
-.tm-video-item h2 {
+.tm-video-item h6 {
     word-spacing: -0.15em;
     font-weight: 300;
 }
 
-.tm-video-item h2,
+.tm-video-item h6,
 .tm-video-item p {
     margin: 0;
 }
@@ -374,7 +374,7 @@ p, .tm-text-gray { color: #999; }
 /*---------------*/
 
 figure.effect-ming {
-	background: #030c17;
+	background: #ccc;
 }
 
 figure.effect-ming img {
@@ -399,7 +399,7 @@ figure.effect-ming figcaption::before {
 	transform: scale3d(1.4,1.4,1);
 }
 
-figure.effect-ming h2 {
+figure.effect-ming h6 {
     font-size: 1.3em;
 	opacity: 0;
 	-webkit-transition: opacity 0.35s, -webkit-transform 0.35s;
@@ -409,7 +409,7 @@ figure.effect-ming h2 {
 }
 
 figure.effect-ming:hover figcaption::before,
-figure.effect-ming:hover h2 {
+figure.effect-ming:hover h6 {
 	opacity: 1;
 	-webkit-transform: scale3d(1,1,1);
 	transform: scale3d(1,1,1);
