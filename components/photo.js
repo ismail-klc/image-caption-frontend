@@ -14,7 +14,7 @@ export default function Photo(props) {
             </figure>
             <div className="d-flex justify-content-between tm-text-black">
                 <span className="tm-text-gray-black">{Moment(props.created_at).format('d MMM YY HH:MM')}</span>
-                <span>{props.user}</span>
+                <span>{props.user.username}</span>
             </div>
         </div>
     )

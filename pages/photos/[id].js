@@ -21,7 +21,7 @@ function PhotoDetail(props) {
     }, [router.query.id])
 
     useEffect(() => {
-        if (photos.length > 0){
+        if (photos.length > 0) {
             setPhoto(photos.find(x => x.id == id))
         }
     }, [photos, photo])
@@ -55,10 +55,10 @@ function PhotoDetail(props) {
                                     <div className="mb-4 d-flex flex-wrap">
                                         <div className="mr-4 mb-2">
                                             <span className="tm-text-gray-dark">Upload Date: </span><span className="tm-text-primary">{moment(photo.created_at).format('d MMM YY HH:MM')}</span>
-                                        </div> 
+                                        </div>
                                         <div className="mr-4 mb-2">
-                                            <span className="tm-text-gray-dark">Uploaded By: </span><span className="tm-text-primary">{photo.user}</span>
-                                        </div> 
+                                            <span className="tm-text-gray-dark">Uploaded By: </span><span className="tm-text-primary">{photo.user.username}</span>
+                                        </div>
                                         <div className="mr-4 mb-2">
                                             <span className="tm-text-gray-dark">Format </span><span className="tm-text-primary">{"JPG"}</span>
                                         </div>
@@ -77,7 +77,7 @@ function PhotoDetail(props) {
 
                                     <div className="text-center" style={{ marginTop: '250px' }}>
 
-                                       <a onClick={handleDownload} className="btn btn-primary tm-btn-big" >Download</a>
+                                        <a onClick={handleDownload} className="btn btn-primary tm-btn-big" >Download</a>
                                     </div>
                                 </div>
                             </div>
@@ -89,9 +89,14 @@ function PhotoDetail(props) {
                     </div>
                     <div className="row mb-3 tm-gallery">
 
-                        {[1, 2, 3, 4, 5, 6, 7, 8].map((p, index) => (
-                            <Photo key={index} />
-                        ))}
+                        {
+                            photos.map((p, index) => (
+                                <Photo 
+                                    image={p.image}
+                                    user={p.user}
+                                    key={index} />
+                            ))
+                        }
 
                     </div>
                 </div>

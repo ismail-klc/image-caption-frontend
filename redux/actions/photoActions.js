@@ -1,14 +1,22 @@
 import getConfig from "next/config";
 const { publicRuntimeConfig } = getConfig();
 import axios from 'axios';
-import { GET_PHOTOS_REQUEST, GET_PHOTOS_SUCCESS, GET_SINGLE_PHOTO } from './types';
+import { GET_PHOTOS_REQUEST, GET_PHOTOS_SUCCESS, GET_SINGLE_PHOTO, GET_UPLOADS_SUCCESS } from './types';
 import { getCookie } from "../../utils/cookie";
 
-const getPhotos = () => {
+const getPhotos = (url) => {
+    let api_url
+    if (url) {
+        api_url = url
+    }
+    else {
+        api_url = `${publicRuntimeConfig.API}/photos/`
+    }
+
     return (dispatch) => {
         dispatch({ type: GET_PHOTOS_REQUEST })
 
-        axios.get(`${publicRuntimeConfig.API}/photos/`)
+        axios.get(api_url)
             .then((response) => {
                 dispatch({ type: GET_PHOTOS_SUCCESS, payload: response.data })
             })
@@ -26,7 +34,7 @@ const getUploads = () => {
 
             axios.get(`${publicRuntimeConfig.API}/photos/uploads/`, config)
                 .then((response) => {
-                    dispatch({ type: GET_PHOTOS_SUCCESS, payload: response.data })
+                    dispatch({ type: GET_UPLOADS_SUCCESS, payload: response.data })
                 })
         }
     }
