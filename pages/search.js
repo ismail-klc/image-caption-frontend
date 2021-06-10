@@ -1,25 +1,22 @@
+import { useRouter } from 'next/router'
+import React, { useEffect } from 'react'
 import { connect, useSelector } from 'react-redux';
 import actions from '../redux/actions';
 import Layout from '../components/layout'
-import Photo from '../components/photo'
-import Search from '../components/search'
-import { useEffect } from 'react';
+import SearchComponent from '../components/search'
+import Photo from '../components/photo';
 
-function Home(props) {
-    const { photos, next_url } = useSelector(state => state.photos)
+function Search(props) {
+    const router = useRouter()
+    const caption = router.query.caption
+    const { photos } = useSelector(state => state.photos)
 
     useEffect(() => {
-        props.getPhotos()
-    }, [])
-
-    const loadMore = () => {
-        if (next_url) {
-            props.getPhotos(next_url)
-        }
-    }
+        props.handleSearch(caption)
+    }, [caption])
 
     return (
-        <Layout title={"Home"}>
+        <Layout title={"Search"}>
             <div className="loaded">
                 <div id="loader-wrapper">
                     <div id="loader"></div>
@@ -27,18 +24,18 @@ function Home(props) {
                     <div className="loader-section section-right"></div>
                 </div>
 
-                <Search />
+                <SearchComponent />
 
                 <div className="container-fluid tm-container-content tm-mt-60">
                     <div className="row mb-4">
                         <h2 className="col-6 tm-text-primary">
-                            Latest Photos
+                        {photos.length} {photos.length > 1 ? "results" : "result"} for keyword "{caption}" 
                         </h2>
                     </div>
 
                     <div className="row tm-mb-90 tm-gallery">
                         {
-                            photos.length === 0 ? "Loading..." : photos.map((p, index) => (
+                            photos.length === 0 ? "" : photos.map((p, index) => (
                                 <Photo
                                     id={p.id}
                                     key={p.id}
@@ -49,17 +46,7 @@ function Home(props) {
                             ))}
                     </div>
 
-                    <div className="row tm-mb-90">
-                        {
-                            next_url &&
-                            <button
-                                onClick={loadMore}
-                                className="btn btn-primary col-md-3"
-                                style={{ margin: 'auto' }}>
-                                Load More
-                            </button>
-                        }
-                    </div>
+
                 </div>
             </div>
         </Layout>
@@ -69,4 +56,4 @@ function Home(props) {
 export default connect(
     state => state,
     actions
-)(Home)
+)(Search)

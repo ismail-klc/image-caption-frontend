@@ -42,6 +42,7 @@ function PhotoDetail(props) {
 
                 <Search />
 
+
                 <div className="container-fluid tm-container-content tm-mt-60">
                     {photos && photo && <div><div className="row mb-4">
                         <h2 className="col-12 tm-text-primary">{photo.caption}</h2>
@@ -54,7 +55,7 @@ function PhotoDetail(props) {
                                 <div className="tm-bg-gray tm-video-details">
                                     <div className="mb-4 d-flex flex-wrap">
                                         <div className="mr-4 mb-2">
-                                            <span className="tm-text-gray-dark">Upload Date: </span><span className="tm-text-primary">{moment(photo.created_at).format('d MMM YY HH:MM')}</span>
+                                            <span className="tm-text-gray-dark">Upload Date: </span><span className="tm-text-primary">{moment(photo.created_at).format('D MMM YY HH:mm')}</span>
                                         </div>
                                         <div className="mr-4 mb-2">
                                             <span className="tm-text-gray-dark">Uploaded By: </span><span className="tm-text-primary">{photo.user.username}</span>
@@ -64,7 +65,7 @@ function PhotoDetail(props) {
                                         </div>
                                     </div>
 
-                                    <div>
+                                    {/* <div>
                                         <h3 className="tm-text-gray-dark mb-3">Tags</h3>
                                         <a href="#" className="tm-text-primary mr-4 mb-2 d-inline-block">Cloud</a>
                                         <a href="#" className="tm-text-primary mr-4 mb-2 d-inline-block">Bluesky</a>
@@ -73,7 +74,7 @@ function PhotoDetail(props) {
                                         <a href="#" className="tm-text-primary mr-4 mb-2 d-inline-block">Timelapse</a>
                                         <a href="#" className="tm-text-primary mr-4 mb-2 d-inline-block">Night</a>
                                         <a href="#" className="tm-text-primary mr-4 mb-2 d-inline-block">Real Estate</a>
-                                    </div>
+                                    </div> */}
 
                                     <div className="text-center" style={{ marginTop: '250px' }}>
 
@@ -82,7 +83,7 @@ function PhotoDetail(props) {
                                 </div>
                             </div>
                         </div></div>}
-                    <div className="row mb-4">
+                    {/* <div className="row mb-4">
                         <h2 className="col-12 tm-text-primary">
                             Related Photos
                         </h2>
@@ -98,7 +99,7 @@ function PhotoDetail(props) {
                             ))
                         }
 
-                    </div>
+                    </div> */}
                 </div>
             </div>
         </Layout >

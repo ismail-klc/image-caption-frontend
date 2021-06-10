@@ -1,19 +1,19 @@
 
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import TextField from '@material-ui/core/TextField';
 import Link from 'next/link';
 import Grid from '@material-ui/core/Grid';
-import { connect } from 'react-redux';
+import { connect, useSelector } from 'react-redux';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import Layout from '../components/layout';
 import actions from '../redux/actions';
-import { useDispatch } from 'react-redux';
+import { toast, ToastContainer } from 'react-nextjs-toast'
 
 const useStyles = makeStyles((theme) => ({
     paper: {
@@ -44,11 +44,28 @@ function SignUp(props) {
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
     const [password2, setPassword2] = useState("")
+    const { errors } = useSelector(state => state.authentication)
+
 
     const handleSubmit = async (e) => {
         e.preventDefault()
         props.register(first_name,last_name,username,email,password,password2)
     }
+
+    useEffect(() => {
+        if (errors && errors.length > 0){
+            let errorMessage = ""
+            for (const err of errors) {
+                errorMessage += err
+            }
+            
+            toast.notify(errorMessage,  {
+                duration: 5,
+                type: "error"
+              })
+        }
+
+    }, [errors])
 
     return (
         <Layout title="Sign Up">
@@ -58,6 +75,7 @@ function SignUp(props) {
                     <Avatar style={{ margin: '10px' }}>
                         <LockOutlinedIcon />
                     </Avatar>
+                    <ToastContainer align={"right"}/>
                     <Typography component="h1" variant="h5">
                         Sign up
                     </Typography>

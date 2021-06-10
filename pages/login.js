@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -13,6 +13,7 @@ import Layout from '../components/layout';
 import actions from '../redux/actions';
 import { useDispatch, useSelector } from 'react-redux';
 import { connect } from 'react-redux';
+import { toast, ToastContainer } from 'react-nextjs-toast'
 
 const useStyles = makeStyles((theme) => ({
     paper: {
@@ -36,14 +37,26 @@ const useStyles = makeStyles((theme) => ({
 
 function SignIn(props) {
     const classes = useStyles();
-    const dispatch = useDispatch()
+    const { errors, token } = useSelector(state => state.authentication)
     const [username, setUsername] = useState("")
     const [password, setPassword] = useState("")
 
     const handleSubmit = (e) => {
         e.preventDefault()
         props.login({ 'username': username, "password": password })
+
+        
     }
+
+    useEffect(() => {
+        console.log(errors);
+        if (errors && errors.length > 0){
+            toast.notify(errors,  {
+                duration: 5,
+                type: "error"
+              })
+        }
+    }, [errors, token])
 
     return (
         <Layout title="Sign In">
@@ -53,6 +66,7 @@ function SignIn(props) {
                     <Avatar style={{ margin: '10px' }}>
                         <LockOutlinedIcon />
                     </Avatar>
+                    <ToastContainer />
                     <Typography component="h1" variant="h5">
                         Sign in
                     </Typography>

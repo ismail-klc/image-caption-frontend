@@ -1,4 +1,4 @@
-import styles from '../styles/demo.module.css'
+import styles from '../public/css/demo.module.css'
 import React, {  useRef, useState } from 'react'
 
 function ImageUpload(props) {
@@ -8,6 +8,7 @@ function ImageUpload(props) {
 
     const readURL = e => {
         setImgPath(URL.createObjectURL(e.target.files[0]))
+        props.setImage(e.target.files[0])
     }
 
     const onButtonClick = () => {
@@ -21,6 +22,7 @@ function ImageUpload(props) {
 
     const removeUpload = () => {
         setImgPath("")
+        props.setImage("")
     }
 
     return (
@@ -29,7 +31,9 @@ function ImageUpload(props) {
                 {
                     !imgPath &&
                     <div className={styles.imageUploadWrap}>
-                        <input className={styles.fileUploadInput} ref={inputFile} type='file' onChange={readURL} accept="image/*" />
+                        <input
+                        value={props.image}
+                        className={styles.fileUploadInput} ref={inputFile} type='file' onChange={readURL} accept="image/*" />
                         <div className={styles.dragText}>
                             <h3>Drag and drop a file or select add Image</h3>
                         </div>

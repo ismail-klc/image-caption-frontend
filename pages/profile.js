@@ -5,10 +5,22 @@ import { useSelector } from 'react-redux'
 import Layout from '../components/layout'
 import Photo from '../components/photo';
 import ImageUpload from '../components/imageUpload';
+import LoadingBar from '../components/loadingBar'
 
 function Profile(props) {
-    const { photos } = useSelector(state => state.photos)
+    const { photos, loading } = useSelector(state => state.photos)
     const [show, setShow] = useState(false)
+    const [image, setImage] = useState('')
+
+    const handleUploadAction = () => {
+        const formData = new FormData()
+        formData.append('image', image)
+        formData.append('caption', 'image caption')
+
+        props.handleAddPhoto(formData)
+        setImage('')
+        setShow(false)
+    }
 
     useEffect(() => {
         props.getUploads()
@@ -16,13 +28,24 @@ function Profile(props) {
 
 
     return (
-        <Layout title="Demo">
+        <Layout title="Profile">
             <div className="container-fluid tm-container-content tm-mt-60">
 
-                <button onClick={() => setShow(!show)} className="btn btn-outline-success btn-lg">Add Image</button>
+                {
+                    !loading &&
+                    <button onClick={() => setShow(!show)} className="btn btn-outline-success btn-lg">Add Image</button>
+                }
+
+                {
+                    loading && 
+                    <LoadingBar text={"Please wait, loading..."}/>
+                }
+
                 {show && <ImageUpload
-                    btnAction={ null }
-                    btnText={"Upload"}
+                    btnAction={handleUploadAction}
+                    btnText={'Upload'}
+                    image={image}
+                    setImage={setImage}
                 />}
 
                 <div className="row mb-4 mt-5">

@@ -292,7 +292,7 @@ p, .tm-text-gray { color: #999; }
 .tm-video-item figcaption {
     padding: 2em;
     color: #fff;
-    text-transform: uppercase;
+    text-transform: lowercase;
     font-size: 1.25em;
     -webkit-backface-visibility: hidden;
 	backface-visibility: hidden;
@@ -322,7 +322,7 @@ p, .tm-text-gray { color: #999; }
 
 .tm-video-item h6 {
     word-spacing: -0.15em;
-    font-weight: 300;
+    font-weight: 200;
 }
 
 .tm-video-item h6,
@@ -558,6 +558,11 @@ select:not([multiple]) {
     transition: all 0.3s ease;
 }
 
+.parallax {
+    padding: 0 !important;
+    margin: 0 !important;
+}
+
 .tm-social li a:hover i {
     color: #fff;
     background-color: #009999;
@@ -582,6 +587,7 @@ select:not([multiple]) {
         background: white;
         width: 150px;
         padding: 15px;
+        z-index: 1003;
     }
 
     .tm-container-content { max-width: 870px; }
