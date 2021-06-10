@@ -4,22 +4,22 @@
 ![Home page](ss/add-image.JPG)
 
 ### demo
-![Demo](ss/demo.jpg)
+![Demo](ss/demo.JPG)
 
 ### login
-![Login](ss/login.jpg)
+![Login](ss/login.JPG)
 
 ### profile
-![Profile](ss/profile.jpg)
+![Profile](ss/profile.JPG)
 
 ### add image
-![Profile](ss/add-image.jpg)
+![Profile](ss/add-image.JPG)
 
 ### added image
-![Profile](ss/added-image.jpg)
+![Profile](ss/added-image.JPG)
 
 ### detail
-![Detail](ss/detail.jpg)
+![Detail](ss/detail.JPG)
 
 ### search
-![Search](ss/search.jpg)
+![Search](ss/search.JPG)
