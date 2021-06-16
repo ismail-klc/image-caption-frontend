@@ -1,7 +1,7 @@
 # image-caption-frontend
 
 ### home page
-![Home page](ss/add-image.JPG)
+![Home page](ss/home.JPG)
 
 ### demo
 ![Demo](ss/demo.JPG)
@@ -13,10 +13,10 @@
 ![Profile](ss/profile.JPG)
 
 ### add image
-![Profile](ss/add-image.JPG)
+![Add Image](ss/add-image.JPG)
 
 ### added image
-![Profile](ss/added-image.JPG)
+![Added Image](ss/added-image.JPG)
 
 ### detail
 ![Detail](ss/detail.JPG)
